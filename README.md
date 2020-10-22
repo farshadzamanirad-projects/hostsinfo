@@ -20,6 +20,6 @@ ansible-playbook -i hosts info.yaml
 
 >  Please change <YOUR_DESIRED_RECIPIENT> inside [roles/local/tasks/main.yaml](https://github.com/farshadzamanirad-projects/hostsinfo/blob/main/roles/local/tasks/main.yaml) to fit your desire.
 
->  Please change hosts from `192.168.56.[1:254]` and credentials to fit your environment.
+>  Please change hosts from `192.168.56.[1:254]` and credentials to fit your environment inside [hosts](https://github.com/farshadzamanirad-projects/hostsinfo/blob/main/hosts).
 
 Have fun!
