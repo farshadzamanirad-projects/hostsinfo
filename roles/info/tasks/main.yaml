@@ -1,0 +1,23 @@
+- name: get the facts
+  setup:
+    gather_subset=all
+  register: facts
+- name: Make sure we have output folder
+  local_action:
+    module: file
+    path: "./{{ansible_date_time.date}}"
+    state: directory
+- name: uid bigger than 999
+  shell: |
+    awk -F: '{if ($3 > 999 && $3 != 65534) { print $1 ":" $3 } }' /etc/passwd | tr '\n' ' '
+  register: biguid
+- name: save results in file
+  local_action:
+    module: shell
+    cmd: echo "{{ item }}"  |  sed "s/\[//g" | sed "s/\]//g" | sed "s/',/,/g" | sed "s/u'//g" | sed "s/'//g"   >> "./{{ansible_date_time.date}}/{{ansible_date_time.date}}.csv"
+  with_together:
+    - "{{ facts.ansible_facts.ansible_default_ipv4.address }}"
+    - "{{ facts.ansible_facts.ansible_hostname }}"
+    - "{{ facts.ansible_facts.ansible_distribution }}"
+    - "{{ facts.ansible_facts.ansible_distribution_version }}"
+    - "{{ biguid.stdout }}"

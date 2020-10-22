@@ -1,0 +1,2 @@
+[private]
+192.168.56.[1:254] ansible_user=gwf ansible_password=123

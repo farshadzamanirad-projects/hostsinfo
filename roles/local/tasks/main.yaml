@@ -1,0 +1,9 @@
+- name: create xlsx file locally
+  local_action:
+    module: shell
+    cmd: python3 convert.py "./{{ansible_date_time.date}}/{{ansible_date_time.date}}.csv"
+- name: Mail the result
+  local_action:
+    module: shell
+    cmd: |
+     cd {{ansible_date_time.date}} && echo " " | mailx -s 'Machines reports for date : "{{ansible_date_time.date}}"'  <YOUR_DESIRED_RECIPIENT>  -A  {{ansible_date_time.date}}.csv -A {{ansible_date_time.date}}.xlsx
